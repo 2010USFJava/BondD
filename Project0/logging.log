@@ -1,0 +1,10 @@
+[INFO ] 2020-11-09 11:37:31.604 [main] BankLogger - A new customer registered janedoe.
+[INFO ] 2020-11-09 12:06:26.210 [main] BankLogger - A new account was created [10000] for [janedoe].
+[INFO ] 2020-11-09 14:05:15.726 [main] BankLogger - Account 10000 has been approved.
+[INFO ] 2020-11-09 14:54:53.699 [main] BankLogger - Account Holders have been updated: [janedoe, JoDoe]
+[INFO ] 2020-11-09 14:56:21.027 [main] BankLogger - A new customer registered dbond.
+[INFO ] 2020-11-09 14:59:01.873 [main] BankLogger - Deposit in the amount of 30.0 to 10000was successful.
+[INFO ] 2020-11-09 14:59:19.440 [main] BankLogger - Withdrawal of 22.0 from 10000 was successful.
+[INFO ] 2020-11-09 14:59:35.969 [main] BankLogger - Transfer from 10000 to 10001 in the amount of 10.0was successful.
+[INFO ] 2020-11-14 01:40:06.715 [main] BankLogger - A new customer registered JParker.
+[INFO ] 2020-11-14 01:40:50.609 [main] BankLogger - A new account was created [10002] for [JParker].

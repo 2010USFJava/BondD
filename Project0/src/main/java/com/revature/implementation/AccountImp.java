@@ -1,23 +1,85 @@
 package com.revature.implementation;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import com.revature.DAOInterface.AccountInterface;
 import com.revature.model.Account;
 import com.revature.model.Customer;
 import com.revature.utility.BankLogger;
 import com.revature.utility.DataPersistenceUtility;
 
-public class AccountImp {
-	
+public class AccountImp implements AccountInterface{
+	private AccountImp() {
+		
+	}
 	
 	private static ArrayList<Account> accountList = new ArrayList<>();
     
+	
+	
+	//fill account list from DB
+	
+	public List<Account> fillAccountList(){
+		accountList.clear();
+		
+		
+		String sql= "select account_id, balance, is_deactivated, is_pending from project0.account";
+		
+		try {
+			int id;
+			double bal;
+			boolean pending, notActive;
+			//list to hold account holders 
+			List <Integer> acctholders = new ArrayList<Integer>();
+			ResultSet rs = DataPersistenceUtility.getResultSet(sql);
+			while (rs.next()) {
+			id= rs.getInt("account_id");
+			bal= rs.getDouble("balance");
+			pending = rs.getBoolean("is_pending");
+			notActive= rs.getBoolean("is_deactivated");
+					
+						//select where statement
+			//create new account 
+			Account a = new Account (id,bal,pending,notActive);
+			
+			//get info from account and fill account holder's list
+			
+			String sql2= "select customer_id from account_lookup where account_id = ? ";
+			   PreparedStatement stmnt = DataPersistenceUtility.makePrStmnt(sql2);
+			   stmnt.setInt(1,id);
+			   ResultSet rs2=stmnt.executeQuery();
+			   while (rs2.next()) {
+				   int id2 = rs2.getInt("customer_id");
+				   acctholders.add(id2);
+			   }
+			//add new account to the list 
+			
+			
+			
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		return accountList;
+		
+	}
 	//get Account list from file
 	public static List<Account> getAccountList(){
 
 		return accountList;
 	}
+	
+	
 
 
 	// update Accounts
@@ -89,7 +151,7 @@ public class AccountImp {
 		double amount = amt;
 		double newBalance = account.getBalance() + amount;
 		account.setBalance(newBalance);
-		DataPersistenceUtility.writeUtility(AccountImp.getAccountList(), DataPersistenceUtility.getAccountfile());
+		//DataPersistenceUtility.writeUtility(AccountImp.getAccountList(), DataPersistenceUtility.getAccountfile());
 		System.out.println("Your new balance is " + account.getBalance());
 		BankLogger.LogIt("info", "Deposit in the amount of " +amt+ " to " +acct.getAccountID()+ "was successful."); 
 	}
@@ -100,7 +162,7 @@ public class AccountImp {
 		double amount = amt;
 		double newBalance = account.getBalance() - amount;
 		account.setBalance(newBalance);
-		DataPersistenceUtility.writeUtility(AccountImp.getAccountList(), DataPersistenceUtility.getAccountfile());
+		//DataPersistenceUtility.writeUtility(AccountImp.getAccountList(), DataPersistenceUtility.getAccountfile());
 		System.out.println("Your new balance is " + account.getBalance());
 		BankLogger.LogIt("info","Withdrawal of " +amt+ " from " +acct.getAccountID()+" was successful.");
 	}
@@ -115,9 +177,9 @@ public class AccountImp {
 			double newBalance2 = toAccount.getBalance() + amount;
 		fromAccount.setBalance(newBalance1);
 		toAccount.setBalance(newBalance2);
-		DataPersistenceUtility.writeUtility(AccountImp.getAccountList(), DataPersistenceUtility.getAccountfile());
+		//DataPersistenceUtility.writeUtility(AccountImp.getAccountList(), DataPersistenceUtility.getAccountfile());
 		System.out.println("Your new balance in  " +toAccount.getAccountID() + " is "+ toAccount.getBalance());
-		System.out.println("Your new balance in  " + fromAccount.getAccountID()+ "is" +  fromAccount.getBalance());
+		System.out.println("Your new balance in  " + fromAccount.getAccountID()+ " is " +  fromAccount.getBalance());
 		BankLogger.LogIt("info", "Transfer from " +fromAccount.getAccountID()+" to "+toAccount.getAccountID()+ " in the amount of " +amt+"was successful.");
 	}
 	}
@@ -127,7 +189,7 @@ public class AccountImp {
 		Account account = acct;
 		String acctHolder = cx.getUserName();
 		account.getAccountHolders().add(acctHolder);
-		DataPersistenceUtility.writeUtility(AccountImp.getAccountList(), DataPersistenceUtility.getAccountfile());
+		//DataPersistenceUtility.writeUtility(AccountImp.getAccountList(), DataPersistenceUtility.getAccountfile());
 		System.out.println("Account Holders have been updated: " + account.getAccountHolders());
 		BankLogger.LogIt("info", "Account Holders have been updated: " + account.getAccountHolders());
 	}
@@ -137,9 +199,38 @@ public class AccountImp {
 		Account account = acct;
 		account.setPending(false);
 		account.setDeactivated(false);
-		DataPersistenceUtility.writeUtility(AccountImp.getAccountList(), DataPersistenceUtility.getAccountfile());
+		
+		//DataPersistenceUtility.writeUtility(AccountImp.getAccountList(), DataPersistenceUtility.getAccountfile());
 		System.out.println("Account " +account.getAccountID()+ " is active and no longer pending!");
 		BankLogger.LogIt("info", "Account " +account.getAccountID()+ " has been approved." );
+		
+	}
+
+
+	@Override
+	public void createNewAccount(Account a) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void updateAccount(Account a) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void deactivateAccount(Account a) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void approveAccount(Account a) throws SQLException {
+		// TODO Auto-generated method stub
 		
 	}
 

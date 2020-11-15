@@ -22,11 +22,21 @@ public class Account implements Serializable{
 	public Account() {
 		super();
 		AccountImp.getAccountList().add(this);
-		DataPersistenceUtility.writeUtility(AccountImp.getAccountList(), DataPersistenceUtility.getAccountfile());
+		//DataPersistenceUtility.writeUtility(AccountImp.getAccountList(), DataPersistenceUtility.getAccountfile());
 		BankLogger.LogIt("info","A new blank account was created");
 	}
 	
 		
+	public Account(int accountID, double balance, boolean isDeactivated, boolean isPending) {
+		super();
+		this.accountID = accountID;
+		this.balance = balance;
+		this.isDeactivated = isDeactivated;
+		this.isPending = isPending;
+		
+	}
+
+
 	public Account(int accountID, double balance, boolean isDeactivated, boolean isPending,
 			List<String> accountHolders) {
 		super();
@@ -36,7 +46,7 @@ public class Account implements Serializable{
 		this.isPending = isPending;
 		this.accountHolders = accountHolders;
 		AccountImp.getAccountList().add(this);
-		DataPersistenceUtility.writeUtility(AccountImp.getAccountList(), DataPersistenceUtility.getAccountfile());
+		//DataPersistenceUtility.writeUtility(AccountImp.getAccountList(), DataPersistenceUtility.getAccountfile());
 		BankLogger.LogIt("info","A new account was created [" + this.getAccountID() + "] for " +this.getAccountHolders()+".");
 	}
 	public List<String> getAccountHolders() {

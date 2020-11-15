@@ -17,7 +17,7 @@ private String position;
 public Employee() {
 	super();
 	EndUserImp.getEndUserList().add(this);
-	DataPersistenceUtility.writeUtility(EndUserImp.getEndUserList(), DataPersistenceUtility.getEnduserfile());
+	//DataPersistenceUtility.writeUtility(EndUserImp.getEndUserList(), DataPersistenceUtility.getEnduserfile());
 	BankLogger.LogIt("info","A new employee was registered.");
 }
 
@@ -27,7 +27,7 @@ public Employee(String fName, String lName, String userName, String password, bo
 	this.employeeID = employeeID;
 	this.position = position;
 	EndUserImp.getEndUserList().add(this);
-	DataPersistenceUtility.writeUtility(EndUserImp.getEndUserList(), DataPersistenceUtility.getEnduserfile());
+	//DataPersistenceUtility.writeUtility(EndUserImp.getEndUserList(), DataPersistenceUtility.getEnduserfile());
 	BankLogger.LogIt("info","A new employee was registered " + this.getUserName() +".");
 }
 
@@ -37,7 +37,7 @@ public Employee(int employeeID,  String position) {
 	this.employeeID = employeeID;
 	this.position = position;
 	EndUserImp.getEndUserList().add(this);
-	DataPersistenceUtility.writeUtility(EndUserImp.getEndUserList(), DataPersistenceUtility.getEnduserfile());
+	//DataPersistenceUtility.writeUtility(EndUserImp.getEndUserList(), DataPersistenceUtility.getEnduserfile());
 	BankLogger.LogIt("info","A new employee was registered " + this.getUserName() +".");
 }
 public int getEmployeeID() {

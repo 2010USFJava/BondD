@@ -22,7 +22,7 @@ public class Customer extends EndUser implements Serializable{
 	public Customer() {
 		super();
 		EndUserImp.getEndUserList().add(this);
-		DataPersistenceUtility.writeUtility(EndUserImp.getEndUserList(), DataPersistenceUtility.getEnduserfile());
+		//DataPersistenceUtility.writeUtility(EndUserImp.getEndUserList(), DataPersistenceUtility.getEnduserfile());
 		BankLogger.LogIt("info","A new customer registered.");
 	}
 	
@@ -34,7 +34,7 @@ public class Customer extends EndUser implements Serializable{
 		this.phoneNumber = phoneNumber;
 		this.accountNumList = accountNumList;
 		EndUserImp.getEndUserList().add(this);
-		DataPersistenceUtility.writeUtility(EndUserImp.getEndUserList(), DataPersistenceUtility.getEnduserfile());
+		//DataPersistenceUtility.writeUtility(EndUserImp.getEndUserList(), DataPersistenceUtility.getEnduserfile());
 		BankLogger.LogIt("info","A new customer registered " + this.getUserName() +".");
 	}
 	
@@ -48,7 +48,7 @@ public class Customer extends EndUser implements Serializable{
 		this.phoneNumber = phoneNumber;
 		this.accountNumList = accountNumList;
 		EndUserImp.getEndUserList().add(this);
-		DataPersistenceUtility.writeUtility(EndUserImp.getEndUserList(), DataPersistenceUtility.getEnduserfile());
+		//DataPersistenceUtility.writeUtility(EndUserImp.getEndUserList(), DataPersistenceUtility.getEnduserfile());
 		BankLogger.LogIt("info","A new customer registered " + this.getUserName() +".");
 	
 	} 

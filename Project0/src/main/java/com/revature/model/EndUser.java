@@ -1,7 +1,7 @@
 package com.revature.model;
 
 import java.io.Serializable;
-import com.revature.model.Status;
+
 public abstract class EndUser implements Serializable {
 	/**
 	 * 
@@ -12,7 +12,7 @@ public abstract class EndUser implements Serializable {
 	private String UserName;
 	private String password;
 	private boolean isActive;
-	private String status; // can only be CUSTOMER, EMPLOYEE, or ADMIN ... todo change this to use an enum.
+	private String status; // can only be CUSTOMER, EMPLOYEE, or ADMIN
 	
 	public EndUser() {
 		super();

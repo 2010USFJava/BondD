@@ -1,24 +1,23 @@
 package com.revature.utility;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class DataPersistenceUtility {
- private static final String ENDUSERFILE = "EndUserFile.txt";
- private static final String ACCOUNTFILE = "AccountFile.txt"; 
+	
+	// I am keeping this code as an example of using generics. 
+// private static final String ENDUSERFILE = "EndUserFile.txt";
+// private static final String ACCOUNTFILE = "AccountFile.txt"; 
  
  
  
  private DataPersistenceUtility() {
 	super();
 }
-public static String getEnduserfile() {
+/*
+ public static String getEnduserfile() {
 	return ENDUSERFILE;
 }
 public static String getAccountfile() {
@@ -63,8 +62,28 @@ public static <T>  List<?> readUtility(String fileName){
 	
 	 return list;
  }
+ */
+public static ConnFactory cf= ConnFactory.getInstance();
+Connection conn = cf.getConnection();
+
+
+
+ public static PreparedStatement makePrStmnt(String s) throws SQLException 
+ {  
+	 Connection conn = cf.getConnection();
+	 PreparedStatement prstmt = conn.prepareStatement(s);
+     return prstmt;
+ }
+ public static java.sql.ResultSet getResultSet(String sql) throws SQLException 
+ {
+	 Connection conn = cf.getConnection();
+     java.sql.Statement stmt = conn.createStatement();
+     ResultSet rs = stmt.executeQuery(sql);
+     return rs;
+ }
+  
+ }
  
  
  
- 
-}
+

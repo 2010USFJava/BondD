@@ -1,0 +1,143 @@
+package com.revature.implementation;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.revature.DAOInterface.EmployeeInterface;
+import com.revature.model.Customer;
+import com.revature.model.Employee;
+import com.revature.utility.DataPersistenceUtility;
+import com.revature.view.ConsoleMenu;
+
+public class EmployeeImp implements EmployeeInterface{
+
+	
+	private static List <Employee> employeeList = new ArrayList<Employee>();
+	
+	
+	
+	public static List<Employee> getEmployeeList(){
+
+		return employeeList;
+	}
+	
+	public static Employee lookUpBYID(int employeeID) {
+		for (Employee ex : employeeList)
+			
+				if (ex.getEmployeeID() == employeeID){
+					return (Employee) ex;
+				}
+			
+		return null;
+		
+	}
+
+	public static void fillEmployeeList() {
+		employeeList.clear();
+		try {
+			String sql= "select * from project0.employee";
+			String fn, ln, un, pw, pos, stat;
+			boolean active;
+			int exID;
+			
+			ResultSet rs = DataPersistenceUtility.getResultSet(sql);
+				while (rs.next()) {
+					fn = rs.getString("first_name");
+					ln= rs.getString("last_name");
+					un = rs.getString("user_name");
+					pw = rs.getString("password");
+					pos = rs.getString("position");
+					active = rs.getBoolean("is_active");
+					exID = rs.getInt("employee_id");
+					stat = rs.getString("status");
+					Employee ex = new Employee(fn,ln,un,pw,active,stat, exID,pos);
+					employeeList.add(ex);
+				}
+			} catch (SQLException e) {
+			 System.out.println(" check fillEmployeeList sql.");
+				e.printStackTrace();
+			}
+		
+		
+		
+		
+		
+	}
+
+	@Override
+	public List<Employee> addNewEmployee(Employee ex)  {
+		String sql = "INSERT into employee (first_name, last_name, user_name, password, position, is_active, status) VALUES (?,?,?,?,?,true,?)";
+		try {
+			PreparedStatement stmnt = DataPersistenceUtility.makePrStmnt(sql);
+			stmnt.setString(1, ex.getfName());
+			stmnt.setString(2, ex.getlName());
+			stmnt.setString(3, ex.getUserName());
+			stmnt.setString(4, ex.getPassword());
+			stmnt.setString(5, ex.getPosition());
+			stmnt.setString(6, ex.getStatus());
+			stmnt.executeUpdate();
+			
+			fillEmployeeList();
+			
+		}catch (SQLException e) {
+			System.out.println(" Check  addNewEmployee  SQL " + e.getSQLState() + ", " + e.getMessage());
+		}
+		return employeeList;
+	}
+
+	@Override
+	public List<Employee> updateEmployee(Employee ex) {
+		String sql = "UPDATE employee SET first_name = ?,last_name = ?, user_name = ?, password = ?,"
+				+ " position = ?, is_active = ?, status = ? WHERE employee_id = ?";
+		try {
+			PreparedStatement stmnt = DataPersistenceUtility.makePrStmnt(sql);
+			stmnt.setString(1,ex.getfName() );
+			stmnt.setString(2,ex.getlName() );
+			stmnt.setString(3,ex.getUserName() );
+			stmnt.setString(4,ex.getPassword() );
+			stmnt.setString(5, ex.getPosition());
+			stmnt.setBoolean(6,ex.isActive() );
+			stmnt.setString(7, ex.getStatus());
+			stmnt.setInt(8, ex.getEmployeeID());
+			
+			
+		}catch (SQLException e) {
+			System.out.println(" Check  updateEmployee  SQL " + e.getSQLState() + ", " + e.getMessage());
+		}
+		return employeeList;
+	}
+
+	@Override
+	public List<Employee> deleteEmployee(Employee ex) {
+		String sql = "";
+		try {
+			PreparedStatement stmnt = DataPersistenceUtility.makePrStmnt(sql);
+		}catch (SQLException e) {
+			System.out.println(" Check deleteEmployee   SQL " + e.getSQLState() + ", " + e.getMessage());
+		}
+		return employeeList;
+	}
+		
+		/*public static Employee authenticateEmployee(String uName, String password) {
+			 for(Employee ex : employeeList) {
+				 
+			if(ex.getUserName()!= null && ex.getUserName().equalsIgnoreCase(uName)
+					 && ex.getPassword().equals(password)) {	
+				
+			 
+				System.out.println("\t\t\tLog in Successful!");
+				 return ex;
+			 
+			 }
+		  }
+			 System.out.println( "User Name and Password do not match. Please Try again.\n\n\n");
+		ConsoleMenu.startMenu();
+		return null;
+		 
+	 }*/
+	}
+
+

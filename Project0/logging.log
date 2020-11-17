@@ -8,3 +8,77 @@
 [INFO ] 2020-11-09 14:59:35.969 [main] BankLogger - Transfer from 10000 to 10001 in the amount of 10.0was successful.
 [INFO ] 2020-11-14 01:40:06.715 [main] BankLogger - A new customer registered JParker.
 [INFO ] 2020-11-14 01:40:50.609 [main] BankLogger - A new account was created [10002] for [JParker].
+[INFO ] 2020-11-16 23:52:55.238 [main] BankLogger - A new employee was registered admin.
+[INFO ] 2020-11-17 03:11:58.311 [main] BankLogger - A new employee was registered admin.
+[INFO ] 2020-11-17 03:13:15.275 [main] BankLogger - Deposit in the amount of 200.0 to 100000was successful.
+[INFO ] 2020-11-17 03:13:29.915 [main] BankLogger - Withdrawal of 30.0 from 100000 was successful.
+[INFO ] 2020-11-17 03:13:48.187 [main] BankLogger - Account 100000 has been approved.
+[INFO ] 2020-11-17 03:25:49.310 [main] BankLogger - A new employee was registered admin.
+[INFO ] 2020-11-17 03:28:12.023 [main] BankLogger - A new customer registered spidey.
+[INFO ] 2020-11-17 03:33:16.188 [main] BankLogger - A new employee was registered admin.
+[INFO ] 2020-11-17 03:34:24.372 [main] BankLogger - A new customer registered Spidey.
+[INFO ] 2020-11-17 03:36:35.827 [main] BankLogger - A new employee was registered admin.
+[INFO ] 2020-11-17 03:37:32.595 [main] BankLogger - A new customer registered Spidey.
+[INFO ] 2020-11-17 05:02:56.689 [main] BankLogger - A new employee was registered admin.
+[INFO ] 2020-11-17 05:03:48.661 [main] BankLogger - A new customer registered spidey.
+[INFO ] 2020-11-17 05:08:03.884 [main] BankLogger - A new employee was registered admin.
+[INFO ] 2020-11-17 05:09:02.946 [main] BankLogger - A new customer registered spidey.
+[INFO ] 2020-11-17 05:09:58.366 [main] BankLogger - A new employee was registered admin.
+[INFO ] 2020-11-17 05:11:08.210 [main] BankLogger - A new customer registered Spidey.
+[INFO ] 2020-11-17 05:11:59.194 [main] BankLogger - A new employee was registered admin.
+[INFO ] 2020-11-17 05:13:00.065 [main] BankLogger - A new customer registered MJ.
+[INFO ] 2020-11-17 05:13:31.513 [main] BankLogger - A new employee was registered admin.
+[INFO ] 2020-11-17 06:45:34.459 [main] BankLogger - MJhas logged in.
+[INFO ] 2020-11-17 07:02:10.423 [main] BankLogger - MJ has logged in.
+[INFO ] 2020-11-17 07:03:42.654 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 07:12:33.496 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 07:13:27.380 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 07:49:23.859 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 07:50:01.730 [main] BankLogger - Customer record has been updated to MJ.
+[INFO ] 2020-11-17 07:54:42.703 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 09:19:44.178 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 09:30:35.722 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 09:30:42.759 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 09:30:48.727 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 09:30:54.087 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 09:32:12.278 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 09:32:20.038 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 09:32:26.998 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 09:32:37.014 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 09:32:41.639 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 11:14:04.432 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 11:15:06.300 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 11:15:36.740 [main] BankLogger - Customer record has been updated to MJ.
+[INFO ] 2020-11-17 11:16:02.764 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 13:21:09.686 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 13:23:25.205 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 13:23:29.706 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 13:23:43.653 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 13:23:56.838 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 13:24:16.611 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 13:51:22.656 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 13:51:30.019 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 13:51:41.284 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 13:51:47.156 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 14:10:25.116 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 14:11:49.676 [main] BankLogger - A new customer registered Spidey.
+[INFO ] 2020-11-17 14:12:07.386 [main] BankLogger - Spidey has logged in.
+[INFO ] 2020-11-17 14:16:21.427 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 14:16:45.206 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 14:17:31.909 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 14:17:43.958 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 15:00:27.431 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 15:01:44.386 [main] BankLogger - A new customer registered Batman.
+[INFO ] 2020-11-17 15:01:50.892 [main] BankLogger - Batman has logged in.
+[INFO ] 2020-11-17 15:01:55.277 [main] BankLogger - Batman has logged in.
+[INFO ] 2020-11-17 15:02:03.662 [main] BankLogger - Batman has logged in.
+[INFO ] 2020-11-17 15:02:46.700 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 15:03:00.155 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 15:03:50.735 [main] BankLogger - A new employee has been registered foo.
+[INFO ] 2020-11-17 15:03:50.735 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 15:04:21.131 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 15:04:29.979 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 15:04:47.515 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 15:05:33.204 [main] BankLogger - Customer password has been reset.
+[INFO ] 2020-11-17 15:05:58.651 [main] BankLogger - admin has logged in.
+[INFO ] 2020-11-17 15:06:07.802 [main] BankLogger - admin has logged in.

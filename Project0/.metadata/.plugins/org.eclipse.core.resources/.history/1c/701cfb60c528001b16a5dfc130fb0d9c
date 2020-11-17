@@ -1,0 +1,199 @@
+package com.revature.implementation;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.revature.DAOInterface.CustomerInterface;
+import com.revature.model.Customer;
+import com.revature.model.EndUser;
+import com.revature.utility.DataPersistenceUtility;
+import com.revature.view.ConsoleMenu;
+
+public class CustomerImp implements CustomerInterface {
+ private static List <Customer> customerList = new ArrayList<Customer>();
+	
+ public CustomerImp() {
+		super();
+	
+	}
+   
+ 
+ 
+ public static List<Customer> getCustomerList(){
+
+		return customerList;
+	}
+
+public static List<Customer> fillCustomerList(){
+	customerList.clear();
+	
+	try {
+	String sql= "select * from project0.customer";
+	String fn, ln, un, pw, ad, phn;
+	boolean active;
+	int cxID;
+	
+	ResultSet rs = DataPersistenceUtility.getResultSet(sql);
+		while (rs.next()) {
+			fn = rs.getString("first_name");
+			ln= rs.getString("last_name");
+			un = rs.getString("user_name");
+			pw = rs.getString("password");
+			ad = rs.getString("address");
+			phn = rs.getString("phone_number");
+			active = rs.getBoolean("is_active");
+			cxID = rs.getInt("customer_id");
+			Customer cx = new Customer (fn,ln,un,pw,active,cxID,ad,phn);
+			customerList.add(cx);
+		}
+	} catch (SQLException e) {
+	 System.out.println(" check fillCustomerList sql.");
+		e.printStackTrace();
+	}
+	
+	
+	return customerList;
+}
+
+@Override
+public List<Customer> addNewCustomer(Customer cx) {
+	String sql = "INSERT INTO customer(first_name, last_name, user_name,"
+			+ "	password, address, phone_number, is_active)"
+			+ "	VALUES(?,?,?,?,?,?, true)";
+	
+	try {
+		
+		
+		PreparedStatement stmnt = DataPersistenceUtility.makePrStmnt(sql);
+		stmnt.setString(1,cx.getfName() );
+		stmnt.setString(2,cx.getlName() );
+		stmnt.setString(3, cx.getUserName() );
+		stmnt.setString(4,cx.getPassword() );
+		stmnt.setString(5,cx.getAddress() );
+		stmnt.setString(6, cx.getPhoneNumber());
+		stmnt.setBoolean(7,cx.isActive());
+		stmnt.executeUpdate();
+		
+		fillCustomerList();
+		
+	} catch(SQLException e) {
+		System.out.println(" Check addNewCustomer SQL");
+		e.printStackTrace();
+	}
+	return customerList;
+}
+
+
+
+@Override
+public List<Customer> updateCustomer(Customer cx) {
+String sql = "UPDATE customer SET first_name = ? , last_name = ?, user_name = ?,"
+	+ "	password = ?, address = ?, phone_number = ?, is_active =  ? WHERE customer_id = ? ";
+	try { 
+		PreparedStatement stmnt = DataPersistenceUtility.makePrStmnt(sql);
+		stmnt.setString(1,cx.getfName() );
+		stmnt.setString(2,cx.getlName() );
+		stmnt.setString(3, cx.getUserName() );
+		stmnt.setString(4,cx.getPassword() );
+		stmnt.setString(5,cx.getAddress() );
+		stmnt.setString(6, cx.getPhoneNumber());
+		stmnt.setBoolean(7, cx.isActive());
+		stmnt.setInt(8,cx.getCustomerID());
+		stmnt.executeUpdate();
+		
+		fillCustomerList();
+	}catch (SQLException e) {
+		System.out.println(" Check updateCustomer SQL. " + e.getSQLState() + e.getMessage());
+		
+	}
+
+
+	return customerList;
+}
+
+
+
+@Override
+public List<Customer> deleteCustomer(Customer cx) throws SQLException {
+	String sql = "DELETE FROM customer WHERE customer_id = ?";
+	
+	try {
+		PreparedStatement stmnt = DataPersistenceUtility.makePrStmnt(sql);
+		stmnt.setInt(1, cx.getCustomerID());
+		
+		fillCustomerList();
+	} catch (SQLException e) {
+		
+		System.out.println("Check DeleteCustomer SQL " + e.getMessage() + e.getSQLState());
+	}
+	return customerList;
+}
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+	/*public static int assignID() {
+		 int id =0;
+         List<Integer> tempList = new ArrayList<>();
+         //make sorted list of IDs
+        EndUserImp.getEndUserList().forEach((eu) -> {
+        	if (eu instanceof Customer) {
+			Customer cx = (Customer) eu;
+           tempList.add(cx.getCustomerID());
+        	}
+        }); 
+        Collections.sort(tempList); 
+              
+       
+       //if user deletes first ID
+        if (tempList.get(0)!=1000){
+            id = 1000;
+            System.out.println(id);
+            return id;
+        } else{
+         id = tempList.size()+1000;
+        
+       return id;
+      
+	}
+        
+   
+       
+}
+ 
+ 
+ 
+	public static List<Customer> customerLookUpList() {
+		List<Customer> tempList = new ArrayList<>();
+		EndUserImp.getEndUserList().forEach((eu) -> {
+			if (eu instanceof Customer) {
+				Customer cx = (Customer) eu;
+				tempList.add(cx);
+			}
+		});
+		return tempList;   
+	   }
+	
+	public static Customer customerLookUp(String uName) {
+		String Un= uName;
+		for(Customer cx: customerLookUpList())
+			if(cx.getUserName().trim().equals(Un)) {
+			 return cx;
+		 }
+		
+		return null;
+		
+	}*/
+
+	
+	
+	
+	
+ }

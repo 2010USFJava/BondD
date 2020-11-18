@@ -1,0 +1,9 @@
+
+™
+java:S41656"fRemove this useless assignment; "userName" already holds the assigned value along all execution paths.(Ó°‘§8Úº°ÿÜ.H’#RMAJORZ
+CODE_SMELL
+o
+java:S18546"<Remove this useless assignment to local variable "userName".(Ó°‘§8Úº°ÿÜ.H“#RMAJORZ
+CODE_SMELL
+[
+java:S16566"/Remove or correct this useless self-assignment.(Ó°‘§8Úº°ÿÜ.H”#RMAJORZBUG

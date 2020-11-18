@@ -1,0 +1,18 @@
+
+ƒ	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(×õÑÛ8ÕÉ¦œÜ.HáRMINORZ
+CODE_SMELL
+ƒ	java:S117 "QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Šç»ÿ8ÕÉ¦œÜ.HâRMINORZ
+CODE_SMELL
+e
+java:S1128
+"-Remove this unused import 'java.util.Locale'.(åð×±ûÿÿÿÿ8ÕÉ¦œÜ.HãRMINORZ
+CODE_SMELL
+h
+java:S1128"0Remove this unused import 'java.time.LocalDate'.(›‘¬èýÿÿÿÿ8ÕÉ¦œÜ.HäRMINORZ
+CODE_SMELL
+r
+java:S1128"?Remove this unused import 'java.time.format.DateTimeFormatter'.(‰÷÷ª8ÕÉ¦œÜ.HåRMINORZ
+CODE_SMELL
+m
+java:S1118":Add a private constructor to hide the implicit public one.(Žî«›8ÕÉ¦œÜ.HæRMAJORZ
+CODE_SMELL

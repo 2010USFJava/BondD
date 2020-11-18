@@ -1,0 +1,13 @@
+
+d
+java:S1611Q"2Remove the parentheses around the "acct" parameter(ÇÙ¢8»—ËÅÚ.HîRMINORZ
+CODE_SMELL
+^
+java:S1602Q",Remove useless curly braces around statement(ÇÙ¢8»—ËÅÚ.HìRMINORZ
+CODE_SMELL
+Z
+java:S1659$"'Declare "notActive" on a separate line.(Ý—±•8¯©“ÇÜ.H™RMINORZ
+CODE_SMELL
+·
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(´êï–8žì–þÜ.H¡"RCRITICALZ
+CODE_SMELL

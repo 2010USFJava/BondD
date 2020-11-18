@@ -1,0 +1,37 @@
+
+i
+java:S1144$"1Remove this unused private "screenScroll" method.(òÜÚ¦üÿÿÿÿ8¬Ú‚Ú.Hµ!RMAJORZ
+CODE_SMELL
+i
+java:S1611"0Remove the parentheses around the "cx" parameter(Ñ„Ş†úÿÿÿÿ8é€ÎİÚ.HÁ!RMINORZ
+CODE_SMELL
+o
+java:S1854Š"<Remove this useless assignment to local variable "tempList".(Œ§Ít8ë…ĞßÚ.H¹!RMAJORZ
+CODE_SMELL
+m
+java:S1118":Add a private constructor to hide the implicit public one.(»¬Ç»8ˆ‘£Ú.H¸!RMAJORZ
+CODE_SMELL
+j
+java:S1611w"2Remove the parentheses around the "acct" parameter(Ï°á›úÿÿÿÿ8 Ğ÷ÚÚ.H¶!RMINORZ
+CODE_SMELL
+d
+java:S1602w",Remove useless curly braces around statement(Ï°á›úÿÿÿÿ8ë…ĞßÚ.H·!RMINORZ
+CODE_SMELL
+`
+java:S1481Š"-Remove this unused "tempList" local variable.(Œ§Ít8ë…ĞßÚ.H¿!RMINORZ
+CODE_SMELL
+i
+java:S1611‹"0Remove the parentheses around the "eu" parameter(—ØóĞÿÿÿÿÿ8ë…ĞßÚ.HÃ!RMINORZ
+CODE_SMELL
+x
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(¥Ü—ö8ï‚Ú.HÀ!RMINORZ
+CODE_SMELL
+Œ
+java:S2293Š"YReplace the type specification in this constructor call with the diamond operator ("<>").(Œ§Ít8ë…ĞßÚ.HÂ!RMINORZ
+CODE_SMELL
+·
+java:S1192"Define a constant instead of duplicating this literal "****************************************************************" 4 times.(í­ÎZ8ï‚Ú.Hº!RCRITICALZ
+CODE_SMELL
+e
+java:S1602",Remove useless curly braces around statement(Ñ„Ş†úÿÿÿÿ8 Ğ÷ÚÚ.H´!RMINORZ
+CODE_SMELL

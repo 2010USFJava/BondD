@@ -1,0 +1,10 @@
+
+t
+java:S1126›"AReplace this if-then-else statement by a single return statement.(÷åÙg8íƒßëÚ.Hÿ#RMINORZ
+CODE_SMELL
+m
+java:S1118":Add a private constructor to hide the implicit public one.(Â‰ñª8„ìÒÚ.H€$RMAJORZ
+CODE_SMELL
+n
+java:S1141¶"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8í›¡êÚ.H$RMAJORZ
+CODE_SMELL

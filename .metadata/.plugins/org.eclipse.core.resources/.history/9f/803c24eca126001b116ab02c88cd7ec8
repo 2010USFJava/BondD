@@ -1,0 +1,16 @@
+package com.revature.DAOInterface;
+
+import java.sql.SQLException;
+
+public interface AccountInterface {
+	
+	
+	public void createNewAccount()throws SQLException;
+	
+	public void updateAccount() throws SQLException;
+	
+	public void deactivateAccount() throws SQLException;
+	
+	public void approveAccount () throws SQLException;
+	
+}

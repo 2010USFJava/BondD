@@ -1,0 +1,803 @@
+package com.revature.view;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import com.revature.Banking.MainDriver;
+import com.revature.implementation.AccountImp;
+import com.revature.implementation.CustomerImp;
+import com.revature.implementation.EmployeeImp;
+import com.revature.implementation.EndUserImp;
+import com.revature.model.Account;
+import com.revature.model.Customer;
+import com.revature.model.Employee;
+import com.revature.model.EndUser;
+import com.revature.utility.DataPersistenceUtility;
+
+//record input 
+public class ConsoleMenu {
+ private static String errMessage= " Please enter a valid value for each field.";
+ private static Scanner input = new Scanner(System.in);
+ // Welcome & login menu
+ public static void startMenu(){
+	
+	 try {
+		prt("\t What would you like to do?");
+		 int decision;
+		 prt("\t[1] Log in?");
+		 prt("\t[2] Register?");
+		 prt("\t[3] Quit?");
+		 decision = Integer.parseInt(input.nextLine());
+		 if (decision== 1) {
+			 login();
+		 }else if (decision==2) {
+			 customerRegister();
+		 }else  if (decision==3){
+			 MainDriver.close();
+		 }else {
+			 prt("\t Please enter 1 for login or 2 to register.");
+			 startMenu();
+		 }
+	} catch (NumberFormatException e) {
+		prt("Please enter a number.");
+		startMenu();
+		
+	}
+			 
+	 
+ }
+	 
+ public static void login(){
+   try {
+	String userName;
+	String password;
+	prt("\tPlease enter your User Name");
+	userName= input.nextLine();
+	prt("\tPlease enter your password.");
+	password= input.nextLine();
+	
+	EndUser currentEndUser = EndUserImp.authenticateEndUser(userName, password);
+	
+		if (currentEndUser!= null) {
+			mainMenu(currentEndUser);
+			
+			 } else {
+				 startMenu();
+			 }
+			  
+				 
+		
+} catch (NullPointerException e) {
+	prt(errMessage);
+	
+		startMenu();
+}
+}
+
+   public static void mainMenu(EndUser currentEU) {
+	   String status = currentEU.getStatus();
+			 switch (status){
+			 case "CUSTOMER":
+				 Display.customerDetails((Customer) currentEU);
+				 
+				 break;
+			 case "EMPLOYEE":
+				  employeeMenu((Employee) currentEU);
+				
+				 break;
+			 case "ADMIN":
+				 adminMenu((Employee) currentEU);
+				 
+				 break;
+			 default:
+					 prt("\tError: an unexpected error has occured Please log in again.");
+					 login();
+   }
+	 
+ }
+
+ public static void customerRegister(){
+	 String uName;
+	 String password;
+	List<Integer> tempAcctList = new ArrayList<>();
+	int cxID;
+	String fName ;
+	String lName;
+	String phNum;
+	String stAdd;
+	String cityAdd;
+	String zpAdd;
+	try {
+		
+		 tempAcctList.add(0);
+		 cxID = CustomerImp.assignID();
+		 prt("\tPlease enter first name");
+		 fName = input.nextLine();
+		 prt("\tPlease enter last name.");
+		 lName = input.nextLine();
+		 prt("\tPlease enter a user name ");
+		  uName=input.nextLine();
+		 password = confirmPassword();
+		 prt("\tPlease enter a phone number");
+		 phNum = input.nextLine();
+		 prt("\tPlease enter a street Address");
+		 stAdd = input.nextLine();
+		 prt("\tPlease enter a city");
+		 cityAdd = input.nextLine();
+		 prt("\tPlease enter a Zipcode");
+		 zpAdd = input.nextLine();
+		 String add = stAdd + ","+ cityAdd+ ","+ zpAdd;  
+		 Customer a = new Customer(fName, lName,  uName, password, true, "CUSTOMER",cxID, add, phNum,tempAcctList);
+		 Display.customerDetails(a);
+		 prt(a.toString());
+	  startMenu();
+	} catch (NullPointerException e) {
+	 prt(errMessage);
+		startMenu();
+	}
+ }
+	 
+ 
+// customer menus
+ 
+ 
+ //look up account verifying account holder and account number
+ public static void viewAccount(String userName){
+
+	 Customer currentCx = CustomerImp.customerLookUp(userName);
+	 try {
+		 if (CustomerImp.customerLookUp(userName).getAccountNumList().isEmpty() || currentCx.getAccountNumList().indexOf(0)==0) {
+			 prt("You don't seem to have an account with us,  Would you like to request one?");
+			 prt("\t[1] Yes [2] No");
+			 String yesNo = input.nextLine();
+			 if (yesNo.trim().contains("1")){
+				 accountRequest(currentCx);
+
+			 } else if (yesNo.trim().contains("2")){
+				 MainDriver.close();
+
+
+			 }
+		 }	else {
+			
+			 
+				 prt("\tPlease enter your account number");
+				 int accountNum = Integer.parseInt(input.nextLine());
+				 if (AccountImp.accountLookUp(accountNum, userName)) {
+
+					 Display.accountDetails(AccountImp.accountLookUpByNum(accountNum), currentCx);
+
+			 }
+				 else {
+					 mainMenu(currentCx);
+				 }
+			
+		 }
+	 }catch (NumberFormatException e) {
+		 prt("\tPlease enter a number.");
+		 viewAccount(userName);
+
+	 } catch (NullPointerException e) {
+		 prt(errMessage);
+		 viewAccount(userName);
+		 e.printStackTrace();
+	 }
+
+ }
+
+
+
+
+
+
+ 
+public static void updateCustomerDetails(Customer cx) {
+	prt("[1] Update Customer Details? ");
+	prt("[2] View account?");
+    prt("[3] Apply for new account?");
+	prt("[4] Log Out?");
+	String decision = input.nextLine();
+	 if (decision.contains("1")){
+		 Display.customerDetailsUpdate(cx);
+		 decision = input.nextLine();
+		  switch (decision) {
+		  case "1"://update password
+			  cx.setPassword(confirmPassword());
+			  prt("Password has been updated");
+			  DataPersistenceUtility.writeUtility(EndUserImp.getEndUserList(), DataPersistenceUtility.getEnduserfile());
+			  updateCustomerDetails(cx);
+		  break;
+		  case "2"://update address
+			  prt("What is your new street address?");
+			  String stAdd = input.nextLine();
+			  prt("New City?");
+			  String city = input.nextLine();
+			  prt("New Zipcode?");
+			  String zp = input.nextLine();
+			  cx.setAddress(stAdd + ", "+ city+", "+ zp);
+			  DataPersistenceUtility.writeUtility(EndUserImp.getEndUserList(), DataPersistenceUtility.getEnduserfile());
+			  prt("Your address has been updated!");
+			  updateCustomerDetails(cx);
+		  break;
+		  case "3"://update phone number
+			  prt(" What is your New phone number?");
+			  String phNum= input.nextLine();
+			  cx.setPhoneNumber(phNum);
+			  DataPersistenceUtility.writeUtility(EndUserImp.getEndUserList(), DataPersistenceUtility.getEnduserfile());
+			  prt("Your phone number has been updated");
+			  updateCustomerDetails(cx);
+		  break;
+		  case "4":
+			  mainMenu(cx);
+			  break;
+		  case "5":
+			  startMenu();
+			  break;
+		  default:
+			  prt("\tPlease enter 1 to update password, 2 to update address or 3 to update phone number.");
+			  startMenu();
+		  }
+	 }else if (decision.contains("2")){
+		 viewAccount(cx.getUserName());
+	 }
+	 else if (decision.contains("3")) {
+		 accountRequest(cx);
+	 } else{ startMenu();
+	 }
+	
+	
+	
+	
+	
+}
+
+public static void updateAccountTransactions(Account account, EndUser currentUser) {
+	Account acct = account;
+	EndUser eu = currentUser;
+	prt("\t Please choose an option.");
+	
+	try {
+		prt("\t[1] Deposit funds?");	//deposit
+		prt("\t[2] Withdraw Funds?");//withdrawal
+		prt("\t[3] Transfer funds to another account?");//transfer
+		prt("\t[4]  Go back to main menu?");// cancel
+		int decision = Integer.parseInt(input.nextLine());
+		double amt;
+		 switch (decision ) {
+		 case (1):
+			 prt("\t Enter amount to deposit.");
+		 		amt = Double.parseDouble(input.nextLine());
+		 		if(verify(amt)) {
+		 		AccountImp.deposit(amt, account);
+		 		updateAccountTransactions(acct, eu);
+		 		} else { prt(errMessage);
+		 		  updateAccountTransactions(acct, eu);
+		 		}
+			 break;
+		 case(2):
+			 prt("\t Enter amount to withdraw.");
+		 		amt = Double.parseDouble(input.nextLine());
+		 		if(verify(amt)) {
+		 		AccountImp.withdrawal(amt, account);
+		 		updateAccountTransactions(acct, eu);
+		 		} else { prt(errMessage);
+		 		  updateAccountTransactions(acct, eu);
+		 		}
+			 break;
+		 case (3):
+			 prt("\t Enter amount to transfer.");
+		 		amt = Double.parseDouble(input.nextLine());
+		 	 prt("\t What is the Account Number you want to transfer TO ");
+		 	  int to = Integer.parseInt(input.nextLine());
+		 	 if(verify(amt)) {
+		 	  AccountImp.transferFunds(amt, acct, to);
+		 	 updateAccountTransactions(acct, eu);
+		 } else { prt(errMessage);
+		  updateAccountTransactions(acct, eu);
+		}
+			 break;
+		 case(4):
+			 mainMenu(eu);
+		 	break;
+			default: 
+				 mainMenu(eu);
+		 }
+		
+		
+	} catch (NullPointerException e) {
+		prt(errMessage);
+		 updateAccountTransactions(acct, eu);
+	}catch (NumberFormatException e) {
+		prt("Please enter 1 to deposit funds, 2 to withdraw funds, 3 to transfer funds to another account or 4 to cancel.");
+		 updateAccountTransactions(acct, eu);
+	}catch (Exception e) {
+		e.printStackTrace();
+	}
+
+	
+	
+}
+
+public static void accountRequest(Customer cx) {
+	prt("What is the initial deposit?");
+	double deposit = Double.parseDouble(input.nextLine());
+	List<String> acctHolders = new ArrayList<>();
+	acctHolders.add(cx.getUserName());
+	prt("Is this a joint account?");
+	String yesNo= input.nextLine();
+	if (yesNo.equalsIgnoreCase("yes")|| yesNo.trim().contains("y")) {
+		prt("Please input the user name of the second account holder.");
+		String secondAccountHolder = input.nextLine();
+		Customer acctHolder2= CustomerImp.customerLookUp(secondAccountHolder);
+		 if (acctHolder2 != null) {
+			acctHolders.add( acctHolder2.getUserName());
+			 
+		 } else {
+			 prt("Account holder not found, please verify userName and try again.");
+			 mainMenu(cx);
+		 }
+	} 
+	int acctId= AccountImp.assignAccountNumber();
+	
+	Account a = new Account (acctId,deposit,false, true, acctHolders);
+	cx.getAccountNumList().add(acctId);
+	prt( "\t Your request has been recieved.");
+	
+	prt(a.toString());
+	
+	mainMenu(cx);
+}
+//employee menus
+
+
+ public static void employeeMenu(Employee emp) {
+	 prt("Please choose an option.");
+		prt("[1] Account Lookup");
+		prt("[2] Customer Lookup");
+		int decision = Integer.parseInt(input.nextLine());
+		switch (decision) {
+		case(1)://lookup account
+		Display.viewAllAccounts(emp);
+		break;
+		case(2): //lookup customer
+		Display.viewAllCustomers(emp);
+		break;
+		default: 
+			mainMenu(emp);
+		}
+	 customerRegister();
+	 
+	 
+ }
+ 
+//admin menus
+ 
+	public static void adminMenu(Employee admin) {
+		prt("Please choose an option.");
+		prt("[1] Account Lookup");
+		prt("[2] Customer Lookup");
+		prt("[3] Employee Lookup ");
+		prt("[4] Additional Admin Menus ");
+		prt("[5] Log out");
+		int decision = Integer.parseInt(input.nextLine());
+		switch (decision) {
+		case(1)://lookup account
+		Display.viewAllAccounts(admin);
+		break;
+		case(2): //lookup customer
+		Display.viewAllCustomers(admin);
+		break;
+		case(3):// lookup employees
+		Display.viewAllEmployees(admin);
+		break;
+		case(4):
+			additionalAdminMenu(admin);
+			break;
+		
+		default:
+			startMenu();
+			
+		
+		}
+		
+	}
+	
+   
+   
+  
+   
+   private static void additionalAdminMenu(Employee admin) {
+	prt("Select appropriate option.");
+	prt("\t[1] Edit Customer details");
+	prt("\t[2] Disable/Deny pending Account");
+	prt("\t[3] Edit Account details");
+	prt("\t[4] Main Menu ");
+	prt("\t[5] Log out");
+	int decision = Integer.parseInt(input.nextLine());
+	try {
+		switch (decision) {
+			case(1)://Edit customer Details
+				prt("Please enter the User Name of the Customer.");
+				String cxUserName = input.nextLine();
+				Customer cx = CustomerImp.customerLookUp(cxUserName);
+				if (cx != null) {
+						editCxDetails(cx, admin);
+				} else { prt("User name not found! Try again.");
+						additionalAdminMenu(admin);
+				}
+			break;
+			case(2): //disable or deny pending accounts.
+			
+			break;
+			case(3):// edit account details
+			
+			break;
+			case(4):
+				mainMenu(admin);
+				break;
+			case(5):
+				startMenu();
+				break;
+			default:
+				mainMenu(admin);
+		}
+	} catch (NullPointerException e) {
+		prt("Please enter valid inputs.");
+		mainMenu(admin);
+		e.printStackTrace();
+	}
+	mainMenu(admin);
+}
+
+private static void editCxDetails(Customer cx, Employee admin) {
+	prt("Select appropriate option.");
+	prt("\t[1] Edit Customer name");
+	prt("\t[2] Edit account number");
+	prt("\t[3] Edit User Name");
+	prt("\t[4] Reset password ");
+	prt("\t[5] Edit Address /phone number ");
+	prt("\t[6] deactivate Customer ");
+	prt("\t[7] Log out");
+	int decision = Integer.parseInt(input.nextLine());
+	try {
+		switch (decision) {
+		case (1): //name
+			prt("\t Enter the Customer new first name.");
+			String fName = input.nextLine();
+			cx.setfName(fName);
+
+			prt("\t Enter the Customer new Last name.");
+			String lName = input.nextLine();
+			cx.setlName(lName);
+			DataPersistenceUtility.writeUtility(EndUserImp.getEndUserList(),
+					DataPersistenceUtility.getEnduserfile());
+			prt("\t Name has been updated to " + cx.getfName() + " " + cx.getlName());
+			editCxDetails(cx,admin);
+			break;
+		case (2): //Customer Id
+			prt("\t Enter the Customer new ID.");
+			int cxID = Integer.parseInt(input.nextLine());
+			cx.setCustomerID(cxID);
+			DataPersistenceUtility.writeUtility(EndUserImp.getEndUserList(),
+					DataPersistenceUtility.getEnduserfile());
+			prt("\t Customer ID has been updated to " + cx.getCustomerID());
+			editCxDetails(cx,admin);
+			break;
+		case (3)://username
+			prt("\t Enter the Customer new username.");
+			String userName = input.nextLine();
+			cx.setUserName(userName);
+			DataPersistenceUtility.writeUtility(EndUserImp.getEndUserList(),
+					DataPersistenceUtility.getEnduserfile());
+			prt("\t User name has been updated to " + cx.getUserName());
+			editCxDetails(cx,admin);
+			break;
+		case (4): //password
+			prt("\t Enter the Customer password.");
+			String password = input.nextLine();
+			cx.setPassword(password);
+			DataPersistenceUtility.writeUtility(EndUserImp.getEndUserList(),
+					DataPersistenceUtility.getEnduserfile());
+			prt("\t Password has been reset. ");
+			editCxDetails(cx,admin);
+			break;
+		case (5): //address & phone number
+			editCxDetails(cx,admin);
+			break;
+		case (6): //active
+			prt("\t Are you sure you want to deactivate Customer? [Yes] or [No]");
+			String yesNo = input.nextLine();
+			if (yesNo.equalsIgnoreCase("yes")) {
+				cx.setActive(false);
+				DataPersistenceUtility.writeUtility(EndUserImp.getEndUserList(),
+						DataPersistenceUtility.getEnduserfile());
+				prt("\t Customer is active is set to " + cx.isActive());
+			}
+			editCxDetails(cx,admin);
+			break;
+		case (7): //Logout
+			startMenu();
+			break;
+		default:
+			mainMenu(admin);
+		}
+	} catch (NumberFormatException e) {
+		prt("Please enter a NUMBER");
+
+		mainMenu(admin);
+		e.printStackTrace();
+	} 
+	
+	
+	
+	
+	
+}
+
+private static String confirmPassword() {
+	   try {
+		String p1;
+		String p2;
+		   do {prt("\tPlease enter a password");
+			  p1 =input.nextLine();
+			 prt("\tPlease confirm password");
+			 p2 =input.nextLine();
+			  } while (!p1.equals(p2) || p1.isBlank());
+		   return p2;
+	} catch (NullPointerException e) {
+		prt(errMessage);
+		confirmPassword();
+	}
+	return " ";
+		  
+   }
+
+public static void accountLookUpMenu(Employee currentEmp) {
+	try {
+		int acctNum;
+		Employee cEmp = currentEmp;
+		prt("Please enter the account number to view details:");
+		acctNum= Integer.parseInt(input.nextLine());
+		Account account = AccountImp.accountLookUpByNum(acctNum);
+		
+		Display.accountDetails(account, cEmp);
+	} catch (NumberFormatException e) {
+		prt("Please enter an account NUMBER to proceed");
+		
+		accountLookUpMenu(currentEmp);
+	} catch (NullPointerException e) {
+		prt("Please verify that the Account number is correct and try again.");
+		accountLookUpMenu(currentEmp);
+	}
+}
+
+public static void employeeAccountUpdate(Account acct, EndUser eu) {
+	try {
+		prt("\t[1] Deposit funds?");	//deposit
+		prt("\t[2] Withdraw Funds?");//withdrawal
+		prt("\t[3] Transfer funds to another account?");//transfer
+		prt("\t[4] Add another account holder?"); //add account holder to joint acct
+	    prt("\t[5] Approve a pending account?"); //approve pending accounts
+		prt("\t[6]  Go back to main menu?");// cancel
+		int decision = Integer.parseInt(input.nextLine());
+		double amt;
+		 switch (decision ) {
+		 case (1):
+			 prt("\t Enter amount to deposit.");
+		 		amt = Double.parseDouble(input.nextLine());
+		 		if (verify(amt)) {
+		 		AccountImp.deposit(amt, acct);
+		 		employeeAccountUpdate(acct, eu);
+		 		mainMenu(eu);
+		 		} else { prt(errMessage);
+		 		employeeAccountUpdate(acct, eu);
+		 		}
+		 		
+			 break;
+		 case(2):
+			 prt("\t Enter amount to withdraw.");
+		 		amt = Double.parseDouble(input.nextLine());
+		 		if (verify(amt)) {
+		 		AccountImp.withdrawal(amt, acct);
+		 		employeeAccountUpdate(acct, eu);
+		 		} else { prt(errMessage);
+		 		employeeAccountUpdate(acct, eu);
+		 		}
+			 break;
+		 case (3):
+			 prt("\t Enter amount to transfer.");
+		 		amt = Double.parseDouble(input.nextLine());
+		 		if(verify(amt)) {
+		 	 prt("\t What is the Account Number you want to transfer TO ");
+		 	  int to = Integer.parseInt(input.nextLine());
+		 	  AccountImp.transferFunds(amt, acct, to);
+		 	 employeeAccountUpdate(acct, eu);
+		 		} else { prt(errMessage);
+		 		employeeAccountUpdate(acct, eu);
+		}
+			 break;
+		 case(4):
+			 prt("Enter the customer User name.");
+		 	String cUserName = input.nextLine();
+		     Customer cx =(Customer) EndUserImp.lookUpEnduserbyUserName(cUserName);
+			 AccountImp.addAccountHolder(acct,cx);
+			 employeeAccountUpdate(acct, eu);
+			 break;
+		 case(5):
+			 AccountImp.approvePendingAccount(acct);
+		 	employeeAccountUpdate(acct, eu);
+			 break;
+		 
+				default: 
+				 mainMenu(eu);
+		 }
+		
+		
+	} catch (NullPointerException e) {
+		prt("Please input a value.");
+		employeeAccountUpdate(acct, eu);
+	}catch (NumberFormatException e) {
+		prt(errMessage);
+		employeeAccountUpdate(acct, eu);
+	}catch (Exception e) {
+		prt("Ut Oh , you broke it. Start over");
+		startMenu();
+		e.printStackTrace();
+	}
+	
+}
+
+public static void cxLookUpMenu(Employee currentEmp) {
+	try {
+		String cxUserName;
+		
+		prt("Please enter the Customer User Name to view details:");
+		cxUserName = input.nextLine();
+		Customer cx = CustomerImp.customerLookUp(cxUserName);
+		 Display.customerDetails(cx);
+		
+	} catch (NullPointerException e) {
+		prt("Please verify that the customer user name is correct and try again.");
+		
+		cxLookUpMenu(currentEmp);
+	}
+	
+}
+
+public static void employeeLookUpMenu(Employee admin) {
+	
+	try {
+		int employeeID;
+		Employee administrator = admin;
+		prt("Please enter the Employee ID to view details:");
+		employeeID = Integer.parseInt(input.nextLine());
+		Employee employee = EmployeeImp.lookUpBYID(employeeID);
+		 Display.employeeDetails(employee, administrator);
+		
+	} catch (NullPointerException e) {
+		prt("Please verify that the customer user name is correct and try again.");
+		employeeLookUpMenu(admin);
+	}
+	
+}
+
+public static void updateEmployeeDetails(Employee emp, Employee admin) {
+	prt("[1] Update Employee?");
+	 prt("[2] Back to main menu?");
+	 prt("[3] Log out?");
+	int choice = Integer.parseInt(input.nextLine());
+ 
+	try {
+		if (choice ==1) {
+			Display.employeeUpdate(emp);
+			try {
+				int decision = Integer.parseInt(input.nextLine());
+			
+				switch (decision) {
+				case (1): //name
+					prt("\t Enter the  Employee new first name.");
+					String fName = input.nextLine();
+					emp.setfName(fName);
+
+					prt("\t Enter the Employee new Last name.");
+					String lName = input.nextLine();
+					emp.setlName(lName);
+					DataPersistenceUtility.writeUtility(EndUserImp.getEndUserList(),
+							DataPersistenceUtility.getEnduserfile());
+					prt("\t Name has been updated to " + emp.getfName() + " " + emp.getlName());
+					updateEmployeeDetails(emp,admin);
+					break;
+				case (2): //position
+					prt("\t Enter the  Employee new position.");
+					String position = input.nextLine();
+					emp.setPosition(position);
+					DataPersistenceUtility.writeUtility(EndUserImp.getEndUserList(),
+							DataPersistenceUtility.getEnduserfile());
+					prt("\t Position has been updated to " + emp.getPosition());
+					updateEmployeeDetails(emp,admin);
+					break;
+				case (3)://username
+					prt("\t Enter the Employee new username.");
+					String userName = input.nextLine();
+					emp.setUserName(userName);
+					DataPersistenceUtility.writeUtility(EndUserImp.getEndUserList(),
+							DataPersistenceUtility.getEnduserfile());
+					prt("\t User name has been updated to " + emp.getUserName());
+					updateEmployeeDetails(emp,admin);
+					break;
+				case (4): //password
+					prt("\t Enter the Employee password.");
+					String password = input.nextLine();
+					emp.setPassword(password);
+					DataPersistenceUtility.writeUtility(EndUserImp.getEndUserList(),
+							DataPersistenceUtility.getEnduserfile());
+					prt("\t Password has been reset. ");
+					updateEmployeeDetails(emp,admin);
+					break;
+				case (5): //employee Id
+					prt("\t Enter the Employee new ID.");
+					int empID = Integer.parseInt(input.nextLine());
+					emp.setEmployeeID(empID);
+					DataPersistenceUtility.writeUtility(EndUserImp.getEndUserList(),
+							DataPersistenceUtility.getEnduserfile());
+					prt("\t Employee ID has been updated to " + emp.getEmployeeID());
+					updateEmployeeDetails(emp,admin);
+					break;
+				case (6): //active
+					prt("\t Are you sure you want to deactivate Employee? [Yes] or [No]");
+					String yesNo = input.nextLine();
+					if (yesNo.equalsIgnoreCase("yes")) {
+						emp.setActive(false);
+						DataPersistenceUtility.writeUtility(EndUserImp.getEndUserList(),
+								DataPersistenceUtility.getEnduserfile());
+						prt("\t Employee is active is  " + emp.isActive());
+					}
+					updateEmployeeDetails(emp,admin);
+					break;
+				case (7): //status
+					prt("\t Choose a Status");
+					prt("\t [1] Employee \t  [2] Admin");
+					int status = Integer.parseInt(input.nextLine());
+					if (status == 2) {
+						emp.setStatus("ADMIN");
+						DataPersistenceUtility.writeUtility(EndUserImp.getEndUserList(),
+								DataPersistenceUtility.getEnduserfile());
+					} else {
+						emp.setStatus("EMPLOYEE");
+						DataPersistenceUtility.writeUtility(EndUserImp.getEndUserList(),
+								DataPersistenceUtility.getEnduserfile());
+					}
+					prt("\t has been updated to " + emp.getStatus());
+					updateEmployeeDetails(emp,admin);
+					break;
+				default:
+					mainMenu(admin);
+				}
+			} catch (NumberFormatException e) {
+				prt("Please enter a NUMBER");
+
+				mainMenu(admin);
+				e.printStackTrace();
+			} 
+		} else if (choice ==3) {
+			startMenu();
+		}else {
+			mainMenu(admin);
+		}
+	} catch (Exception e) {
+		mainMenu(admin);
+		
+	}
+}
+   public static boolean verify(double num) {
+	   
+	   if (num < 0) {
+		   return false;
+	   }
+	   return true;
+   }
+   private static void prt(String s) {
+	   System.out.println("\t\t**\t"+ s);
+   }
+}

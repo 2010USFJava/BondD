@@ -1,0 +1,15 @@
+
+–
+java:S1488J"^Immediately return this expression instead of assigning it to the temporary variable "prstmt".(äº½¹ùÿÿÿÿ8ôƒ½»Ü.H¶RMINORZ
+CODE_SMELL
+
+java:S1104B"NMake cf a static final constant or non-public and provide accessors if needed.(­ë—ß8ôƒ½»Ü.HµRMINORZ
+CODE_SMELL
+[
+java:S1444B"(Make this "public static cf" field final(­ë—ß8ôƒ½»Ü.H³RMINORZ
+CODE_SMELL
+u
+java:S2095P"GUse try-with-resources or close this "Statement" in a "finally" clause.(ı±ó±8Âšß¿Ü.HïRBLOCKERZBUG
+’
+java:S1488Q"ZImmediately return this expression instead of assigning it to the temporary variable "rs".(ÊõŞàşÿÿÿÿ8Âšß¿Ü.HğRMINORZ
+CODE_SMELL

@@ -1,0 +1,85 @@
+package com.revature.implementation;
+
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import com.revature.DAOInterface.EmployeeInterface;
+import com.revature.model.Employee;
+import com.revature.model.EndUser;
+
+public class EmployeeImp implements EmployeeInterface {
+
+	public static Employee lookUpBYID(int employeeID) {
+		for (EndUser eu : EndUserImp.endUserList)
+			if (eu instanceof Employee) {
+				if (((Employee) eu).getEmployeeID() == employeeID){
+					return (Employee) eu;
+				}
+			}
+		return null;
+	}
+
+	@Override
+	public void createNewEmployee(Employee ex) {
+		String sql = "Insert into  (fist_name,) values (?)"	
+				try {
+					PreparedStatement stmnt = makePrStmnt(sql);
+					stmnt.setString(1, cx.getfName());
+					
+					
+					stmnt.executeUpdate();
+					
+					fillCustomerList();
+					
+				}catch(SQLException sqe){
+			          System.out.println("Check Customer Insert SQL " + sqe.getSQLState() + sqe.getMessage());
+			        } catch (Exception e) {
+			            System.out.println("Error:" +e.getMessage());
+			         }
+		
+	}
+
+	@Override
+	public void updateEmployee(Employee ex) {
+		 String query = "UPDATE customer SET  customerName = ?, addressId = ?," +
+		            " lastUpdate = ?, lastUpdateBy = ? WHERE customerId = ?";
+		        Timestamp ts = createTS();
+		        try {
+		            PreparedStatement stmnt = makePrStmnt(query);
+		            stmnt.setString(1,cx.getCsName());
+		            stmnt.setInt(2,cx.getAddressID());
+		            stmnt.setTimestamp(3, ts);
+		            stmnt.setString(4, eu);
+		            stmnt.setInt(5,cx.getCustomerID());
+		            stmnt.executeUpdate();
+		            
+		            fillCustomerList();
+		            AppointmentImp.fillApptList();
+		            AddressImp.fillAddressList();
+		         } catch(SQLException sqe){
+		          System.out.println("Check Customer Update SQL " + sqe.getSQLState() + sqe.getMessage());
+		        } catch (Exception e) {
+		            System.out.println("Error:" +e.getMessage());
+		         }
+		
+	}
+
+	@Override
+	public void deactivateEmployee(Employee ex) {
+		 String query = "DELETE from customer WHERE customerId = ? ";
+	     
+	     try {
+	            PreparedStatement stmnt = makePrStmnt(query);
+	             stmnt.setInt(1,cx.getCustomerID());
+	             stmnt.executeUpdate();
+	             
+	             fillCustomerList();
+	        } catch(SQLException sqe){
+	          System.out.println("Check Customer DELETE SQL " + sqe.getSQLState() + sqe.getMessage());
+	        } catch (Exception e) {
+	            System.out.println("Error:" +e.getMessage());
+	         }
+		
+	}
+
+}

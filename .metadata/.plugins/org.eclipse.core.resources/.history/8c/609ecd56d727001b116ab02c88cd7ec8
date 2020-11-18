@@ -1,0 +1,22 @@
+package com.revature.DAOInterface;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import com.revature.model.Customer;
+
+
+public interface CustomerInterface {
+	//(c)reate
+		public List<Customer> addNewCustomer(Customer cx)throws SQLException;
+		//(r)ead 
+		//public List<Customer> fillCustomerList() throws SQLException;
+		
+		//(u)pdate
+		public List<Customer> updateCustomer(Customer cx) throws SQLException;
+		
+
+		//(d)elete
+		public List<Customer> deleteCustomer(Customer cx) throws SQLException;
+		
+}

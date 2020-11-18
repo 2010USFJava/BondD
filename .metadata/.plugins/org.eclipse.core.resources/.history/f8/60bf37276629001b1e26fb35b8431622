@@ -1,0 +1,89 @@
+package com.revature.implementation;
+
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import com.revature.DAOInterface.EmployeeInterface;
+import com.revature.model.Employee;
+import com.revature.model.EndUser;
+import com.revature.utility.DataPersistenceUtility;
+
+public class EmployeeImp implements EmployeeInterface {
+
+	public static Employee lookUpBYID(int employeeID) {
+		for (EndUser eu : EndUserImp.endUserList)
+			if (eu instanceof Employee) {
+				if (((Employee) eu).getEmployeeID() == employeeID){
+					return (Employee) eu;
+				}
+			}
+		return null;
+	}
+
+	@Override
+	public void createNewEmployee(Employee ex) {
+		String sql = "Insert into project0.employee (fist_name,last_name, user_name, password,position, is_active) values (?,?,?,?,?,?)"	
+				try {
+					PreparedStatement stmnt = DataPersistenceUtility.makePrStmnt(sql);
+					stmnt.setString(1, ex.getfName());
+					stmnt.setString(2, ex.getfName());
+					stmnt.setString(3, ex.getfName());
+					stmnt.setString(4, ex.getfName());
+					stmnt.setString(5, ex.getfName());
+					stmnt.setBoolean(6, true);
+					stmnt.executeUpdate();
+					
+					fillEmployeeList();
+					
+				}catch(SQLException sqe){
+			          System.out.println("Check Employee Insert SQL " + sqe.getSQLState() + sqe.getMessage());
+			        } catch (Exception e) {
+			            System.out.println("Error:" +e.getMessage());
+			         }
+		
+	}
+
+	@Override
+	public void updateEmployee(Employee ex) {
+		 String query = "UPDATE project0.employee  SET  customerName = ?, addressId = ?," +
+		            " lastUpdate = ?, lastUpdateBy = ? WHERE customerId = ?";
+		        Timestamp ts = createTS();
+		        try {
+		        	PreparedStatement stmnt = DataPersistenceUtility.makePrStmnt(sql);
+		            stmnt.setString(1,cx.getCsName());
+		            stmnt.setInt(2,cx.getAddressID());
+		            stmnt.setTimestamp(3, ts);
+		            stmnt.setString(4, eu);
+		            stmnt.setInt(5,cx.getCustomerID());
+		            stmnt.executeUpdate();
+		            
+		            fillCustomerList();
+		            AppointmentImp.fillApptList();
+		            AddressImp.fillAddressList();
+		         } catch(SQLException sqe){
+		          System.out.println("Check Employee Update SQL " + sqe.getSQLState() + sqe.getMessage());
+		        } catch (Exception e) {
+		            System.out.println("Error:" +e.getMessage());
+		         }
+		
+	}
+
+	@Override
+	public void deactivateEmployee(Employee ex) {
+		 String query = "DELETE from project0.employee  WHERE customerId = ? ";
+	     
+	     try {
+	    	 PreparedStatement stmnt = DataPersistenceUtility.makePrStmnt(sql);
+	             stmnt.setInt(1,cx.getCustomerID());
+	             stmnt.executeUpdate();
+	             
+	             fillCustomerList();
+	        } catch(SQLException sqe){
+	          System.out.println("Check Employee DELETE SQL " + sqe.getSQLState() + sqe.getMessage());
+	        } catch (Exception e) {
+	            System.out.println("Error:" +e.getMessage());
+	         }
+		
+	}
+
+}

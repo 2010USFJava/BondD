@@ -1,0 +1,25 @@
+
+R
+java:S1659 " Declare "pw" on a separate line.(Óúƒu8ÁÉ¶ÿÜ.H©#RMINORZ
+CODE_SMELL
+i
+java:S1854."6Remove this useless assignment to local variable "cx".(‰äêŒ8ÁÉ¶ÿÜ.H¦#RMAJORZ
+CODE_SMELL
+R
+java:S1659 " Declare "ln" on a separate line.(Óúƒu8ÁÉ¶ÿÜ.H§#RMINORZ
+CODE_SMELL
+R
+java:S1659 " Declare "un" on a separate line.(Óúƒu8ÁÉ¶ÿÜ.H¨#RMINORZ
+CODE_SMELL
+Z
+java:S1481."'Remove this unused "cx" local variable.(‰äêŒ8ÁÉ¶ÿÜ.H¬#RMINORZ
+CODE_SMELL
+R
+java:S1659 " Declare "ad" on a separate line.(Óúƒu8ÁÉ¶ÿÜ.Hª#RMINORZ
+CODE_SMELL
+Œ
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(´ˆîÄ8¹‚ŞşÜ.HÎ"RMINORZ
+CODE_SMELL
+S
+java:S1659 "!Declare "phn" on a separate line.(Óúƒu8ÁÉ¶ÿÜ.H«#RMINORZ
+CODE_SMELL

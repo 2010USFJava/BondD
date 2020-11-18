@@ -1,0 +1,9 @@
+
+v
+java:S2095"HUse try-with-resources or close this "FileReader" in a "finally" clause.(ºÃ·ü8≠ﬁÓÀ€.H∫RBLOCKERZBUG
+w
+java:S2147"DCombine this catch with the one at line 29, which has the same body.(Ô≠£ƒ8≠ﬁÓÀ€.HΩRMINORZ
+CODE_SMELL
+w
+java:S2147!"DCombine this catch with the one at line 29, which has the same body.(…Æ£ù8≠ﬁÓÀ€.HøRMINORZ
+CODE_SMELL

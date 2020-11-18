@@ -1,0 +1,91 @@
+package com.revature.implementation;
+
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import com.revature.DAOInterface.CustomerInterface;
+import com.revature.model.Account;
+import com.revature.model.Customer;
+import com.revature.utility.DataPersistenceUtility;
+
+public class CustomerImp implements CustomerInterface {
+
+	private CustomerImp() {
+		super();
+	
+	}
+   
+private ArrayList<Customer> customerList = new ArrayList<>();
+    
+	
+	
+	//fill account list from DB
+	
+	public List<Customer> fillCustomerList(){
+		customerList.clear();
+		
+		
+		String sql= "select account_id, balance, is_deactivated, is_pending from project0.account";
+		
+		try {
+			int id;
+			double bal;
+			boolean pending, notActive;
+			//list to hold account holders 
+			
+			ResultSet rs = DataPersistenceUtility.getResultSet(sql);
+			while (rs.next()) {
+			id= rs.getInt("customer_id");
+			
+			;
+					
+						//select where statement
+			//create new customer 
+			Customer cx = new Customer();
+			//add new customer to the list 
+			getCustomerList().add(cx);
+			
+			   }
+			
+        
+   
+       
+
+	
+	
+	public static Customer customerLookUp(String uName) {
+		String Un= uName;
+		for(Customer cx: getCustomerList())
+			if(cx.getUserName().trim().equals(Un)) {
+			 return cx;
+		 }
+		
+		return null;
+		
+	}
+
+	@Override
+	public void createNewCustomer(Customer cx) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateCustomer(Customer cx) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deactivateCustomer(Customer cx) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	
+	
+	
+ }

@@ -1,0 +1,21 @@
+package com.revature.DAOInterface;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import com.revature.model.Account;
+
+public interface AccountInterface {
+	
+	
+	public List<Account> addNewAccount(Account a)throws SQLException;
+	
+	public List<Account>updateAccount(Account a) throws SQLException;
+	
+	public List<Account> deactivateAccount(Account a) throws SQLException;
+	
+	public List<Account>approveAccount (Account a) throws SQLException;
+	
+	public List<Account> deleteAccount(Account a ) throws SQLException;
+	
+}

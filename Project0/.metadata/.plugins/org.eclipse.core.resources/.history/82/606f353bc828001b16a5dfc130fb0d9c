@@ -1,0 +1,42 @@
+package com.revature.Banking;
+
+import com.revature.implementation.AccountImp;
+import com.revature.implementation.CustomerImp;
+import com.revature.implementation.EmployeeImp;
+import com.revature.view.ConsoleMenu;
+
+public class MainDriver {
+  static { 
+	 
+     AccountImp.fillAccountList();
+	 CustomerImp.fillCustomerList();
+	 EmployeeImp.fillEmployeeList();
+	  
+	  System.out.println("\n\n\t\t\t *******************************");
+	  System.out.println("\t\t\t *  Welcome to Reveture bank!  *");
+	  System.out.println("\t\t\t *******************************");
+   //AccountImp.setAccountList( (ArrayList<Account>) DataPersistenceUtility.readUtility(DataPersistenceUtility.getAccountfile()));
+  // EndUserImp.setEndUserList((ArrayList<EndUser>) DataPersistenceUtility.readUtility(DataPersistenceUtility.getEnduserfile()));
+  }
+  
+  
+	public static void main(String[] args) {
+		//insert sample data into database ;
+		
+		ConsoleMenu	consoleMenu= new ConsoleMenu();
+		
+		
+		//System.out.println(AccountImp.getAccountList());	
+		//System.out.println(CustomerImp.getCustomerList());
+		//System.out.println(EmployeeImp.getEmployeeList());
+		//System.out.println(EndUserImp.getEndUserList());
+	 
+		consoleMenu.startMenu();
+			
+	}
+	public static void close() {
+		System.out.println("\t\t\t\tThank you, come again!");
+		
+	}
+
+}

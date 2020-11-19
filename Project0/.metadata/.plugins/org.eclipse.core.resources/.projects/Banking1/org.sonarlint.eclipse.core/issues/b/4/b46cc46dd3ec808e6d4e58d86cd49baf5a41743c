@@ -1,0 +1,9 @@
+
+…	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ò´é€HRMINORZ
+CODE_SMELL
+c
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8Û •«İ.H„RMINORZ
+CODE_SMELL
+j
+java:S1128"7Remove this unused import 'com.revature.model.EndUser'.(½â²¨8Û •«İ.H…RMINORZ
+CODE_SMELL

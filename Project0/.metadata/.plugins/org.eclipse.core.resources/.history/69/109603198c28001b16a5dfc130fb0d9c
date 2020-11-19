@@ -1,0 +1,53 @@
+package com.revature.implementation;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.revature.DAOInterface.EmployeeInterface;
+import com.revature.model.Customer;
+import com.revature.model.Employee;
+import com.revature.view.ConsoleMenu;
+
+public class EmployeeImp implements EmployeeInterface{
+
+	
+	private static List <Employee> employeeList = new ArrayList<Employee>();
+	
+	
+	
+	public static List<Employee> getEmployeeList(){
+
+		return employeeList;
+	}
+	
+	public static Employee lookUpBYID(int employeeID) {
+		for (Employee ex : employeeList)
+			
+				if (ex.getEmployeeID() == employeeID){
+					return (Employee) ex;
+				}
+			
+		return null;
+		
+	}
+		
+		public static Employee authenticateEmployee(String uName, String password) {
+			 for(Employee ex : employeeList) {
+				 
+			if(ex.getUserName()!= null && ex.getUserName().equalsIgnoreCase(uName)
+					 && ex.getPassword().equals(password)) {	
+				
+			 
+				System.out.println("\t\t\tLog in Successful!");
+				 return ex;
+			 
+			 }
+		  }
+			 System.out.println( "User Name and Password do not match. Please Try again.\n\n\n");
+		ConsoleMenu.startMenu();
+		return null;
+		 
+	 }
+	}
+
+

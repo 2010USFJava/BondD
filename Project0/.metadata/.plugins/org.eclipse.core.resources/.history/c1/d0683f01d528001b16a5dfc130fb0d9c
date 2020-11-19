@@ -1,0 +1,76 @@
+package com.revature.implementation;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.revature.model.EndUser;
+import com.revature.model.EndUser;
+import com.revature.view.ConsoleMenu;
+
+public class EndUserImp {
+	
+	private static List<EndUser> endUserList= new ArrayList<EndUser>();
+	
+
+	public EndUserImp() {
+		super();
+	}
+
+	
+
+	
+ 
+ 
+ public static List<EndUser> getEndUserList() {
+	 
+	 endUserList.addAll(CustomerImp.getCustomerList());
+	 endUserList.addAll(EmployeeImp.getEmployeeList());
+	 
+	 return endUserList;
+ }
+ 
+ 
+ public EndUser authenticateEndUser(String uName, String password) {
+ ConsoleMenu	consoleMenu= new ConsoleMenu();
+ 
+	 for(EndUser eu: endUserList) {
+		
+	if(eu.getUserName()!= null && eu.getUserName().equalsIgnoreCase(uName)
+			 && eu.getPassword().equals(password)) {	
+		
+	 
+		System.out.println("\t\t\tLog in Successful!");
+		 return eu;
+	 
+	 }
+ }
+	 System.out.println( "User Name and Password do not match. Please Try again.\n\n\n");
+consoleMenu.startMenu();
+return null;
+
+}
+ public  boolean verifyUserNameUnique(String uName) {
+	
+	for(EndUser eu: endUserList) {
+		
+			if ( eu.getUserName().trim().equalsIgnoreCase(uName)) {
+				 System.out.println("User Name Already in use. Try again");
+				 return true;
+			 }
+	}
+	 
+	return false;
+ }
+ 
+ public EndUser lookUpEnduserbyUserName(String userName) {
+	 String uN = userName;
+	 for(EndUser eu: endUserList)
+		 if (eu.getUserName().equalsIgnoreCase(uN)) {
+			 return eu;
+		 }
+		 
+	 
+	return null;
+ }
+	
+}

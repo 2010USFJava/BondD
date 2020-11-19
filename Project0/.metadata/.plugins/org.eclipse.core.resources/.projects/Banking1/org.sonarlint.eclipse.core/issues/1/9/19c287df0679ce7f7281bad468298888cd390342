@@ -1,0 +1,33 @@
+
+]
+java:S1144!"1Remove this unused private "screenScroll" method.(ì¥ºªHÁRMAJORZ
+CODE_SMELL
+^
+java:S1602‹",Remove useless curly braces around statement(á‹®œøÿÿÿÿHºRMINORZ
+CODE_SMELL
+d
+java:S1602v",Remove useless curly braces around statement(Ï°á›úÿÿÿÿ8¿Ù¾›İ.H•RMINORZ
+CODE_SMELL
+b
+java:S1611‹"0Remove the parentheses around the "ex" parameter(á‹®œøÿÿÿÿH¿RMINORZ
+CODE_SMELL
+b
+java:S1611"0Remove the parentheses around the "cx" parameter(‰Ş›»ıÿÿÿÿH»RMINORZ
+CODE_SMELL
+Y
+java:S1170"!Make this final field static too.(ñİ¬Úúÿÿÿÿ8ÿ±õ´İ.HíRMINORZ
+CODE_SMELL
+c
+java:S1611v"2Remove the parentheses around the "acct" parameter(Ï°á›úÿÿÿÿH¹RMINORZ
+CODE_SMELL
+^
+java:S1602",Remove useless curly braces around statement(‰Ş›»ıÿÿÿÿH¼RMINORZ
+CODE_SMELL
+°
+java:S1192"Define a constant instead of duplicating this literal "****************************************************************" 4 times.(í­ÎZH²RCRITICALZ
+CODE_SMELL
+†	java:S116"ORename this field "TABS" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ñİ¬Úúÿÿÿÿ8ÿ±õ´İ.HìRMINORZ
+CODE_SMELL
+U
+java:S1116¦"Remove this empty statement.(Åñ­õşÿÿÿÿ8‰íÏ¶İ.H¨	RMINORZ
+CODE_SMELL

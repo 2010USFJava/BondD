@@ -1,0 +1,88 @@
+package com.revature.implementation;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.revature.DAOInterface.EmployeeInterface;
+import com.revature.model.Customer;
+import com.revature.model.Employee;
+import com.revature.utility.DataPersistenceUtility;
+import com.revature.view.ConsoleMenu;
+
+public class EmployeeImp implements EmployeeInterface{
+
+	
+	private static List <Employee> employeeList = new ArrayList<Employee>();
+	
+	
+	
+	public static List<Employee> getEmployeeList(){
+
+		return employeeList;
+	}
+	
+	public static Employee lookUpBYID(int employeeID) {
+		for (Employee ex : employeeList)
+			
+				if (ex.getEmployeeID() == employeeID){
+					return (Employee) ex;
+				}
+			
+		return null;
+		
+	}
+
+	public static void fillEmployeeList() {
+		employeeList.clear();
+		try {
+			String sql= "select * from project0.employee";
+			String fn, ln, un, pw, pos, stat;
+			boolean active;
+			int exID;
+			
+			ResultSet rs = DataPersistenceUtility.getResultSet(sql);
+				while (rs.next()) {
+					fn = rs.getString("first_name");
+					ln= rs.getString("last_name");
+					un = rs.getString("user_name");
+					pw = rs.getString("password");
+					pos = rs.getString("position");
+					active = rs.getBoolean("is_active");
+					exID = rs.getInt("employee_id");
+					stat = rs.getString("status");
+					Employee ex = new Employee(fn,ln,un,pw,active,stat, exID,pos);
+					employeeList.add(ex);
+				}
+			} catch (SQLException e) {
+			 System.out.println(" check fillCustomerList sql.");
+				e.printStackTrace();
+			}
+		
+		
+		
+		
+		
+	}
+		
+		/*public static Employee authenticateEmployee(String uName, String password) {
+			 for(Employee ex : employeeList) {
+				 
+			if(ex.getUserName()!= null && ex.getUserName().equalsIgnoreCase(uName)
+					 && ex.getPassword().equals(password)) {	
+				
+			 
+				System.out.println("\t\t\tLog in Successful!");
+				 return ex;
+			 
+			 }
+		  }
+			 System.out.println( "User Name and Password do not match. Please Try again.\n\n\n");
+		ConsoleMenu.startMenu();
+		return null;
+		 
+	 }*/
+	}
+
+

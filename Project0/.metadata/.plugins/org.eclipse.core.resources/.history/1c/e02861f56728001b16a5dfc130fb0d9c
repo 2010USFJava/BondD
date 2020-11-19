@@ -1,0 +1,49 @@
+package com.revature.implementation;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.revature.model.EndUser;
+import com.revature.view.ConsoleMenu;
+
+public class EndUserImp {
+	
+	
+	
+
+	private EndUserImp() {
+		super();
+	}
+
+	
+
+	
+ 
+ 
+ 
+ 
+ public static boolean verifyUserNameUnique(String uName) {
+	
+	for(EndUser eu: endUserList) {
+		
+			if ( eu.getUserName().trim().equalsIgnoreCase(uName)) {
+				 System.out.println("User Name Already in use. Try again");
+				 return true;
+			 }
+	}
+	 
+	return false;
+ }
+ 
+ public static EndUser lookUpEnduserbyUserName(String userName) {
+	 String uN = userName;
+	 for(EndUser eu: endUserList)
+		 if (eu.getUserName().equalsIgnoreCase(uN)) {
+			 return eu;
+		 }
+		 
+	 
+	return null;
+ }
+	
+}
